@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Portofolio • Muhammad Zidan Fahmi</title>
+  <meta name="description" content="Portofolio pribadi berisi data diri, pengalaman kerja, skill, dan project." />
+
+  <style>
+    /* ===== THEME VARIABLES ===== */
+    :root {
+      --bg: #c1089f;         /* slate-900 */
+      --card: #ecdee6;       /* custom dark card */
+      --text: #372283;       /* almost white */
+      --muted: #94a3b8;      /* slate-400 */
+      --accent1: #c05bad;    /* cyan-400 */
+      --accent2: #131415;    /* violet-400 */
+      --border: #a628b4;     /* slate-700 */
+      --radius-lg: 1rem;
+      --radius-sm: .5rem;
+      --pad-card: 1.25rem;
+      --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Inter",
+                    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* LIGHT THEME VERSION */
+    [data-theme="light"] {
+      --bg: #f8fafc;        /* slate-50 */
+      --card: #ffffff;      /* white */
+      --text: #0f172a;      /* slate-900 */
+      --muted: #475569;     /* slate-600 */
+      --accent1: #0ea5e9;   /* sky-500 */
+      --accent2: #6366f1;   /* indigo-500 */
+      --border: #cbd5e1;    /* slate-300 */
+    }
+
+    /* ===== GLOBAL RESET ===== */
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-stack);
+      line-height: 1.5;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem 5rem;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width:768px) {
+      main {
+        grid-template-columns: 1fr 1fr;
+      }
+      .full-row {
+        grid-column: span 2;
+      }
+    }
+
+    /* ====== BUTTON SWITCH THEME ====== */
+    .theme-toggle-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .theme-toggle-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: .8rem;
+      font-weight: 500;
+      line-height: 1.2;
+      border-radius: var(--radius-sm);
+      padding: .5rem .75rem;
+      cursor: pointer;
+      box-shadow:
+        0 16px 40px rgba(136, 66, 66, 0.5),
+        0 2px 4px rgba(0,0,0,.4);
+    }
+    .theme-toggle-btn:hover {
+      outline: 2px solid var(--accent1);
+      outline-offset: 2px;
+    }
+
+    /* ===== CARD / SECTION STYLE ===== */
+    .section-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--pad-card);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.6),
+        0 2px 4px rgba(0,0,0,.4);
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card header {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+    }
+
+    .section-card header .bar {
+      width: .3rem;
+      background: linear-gradient(180deg,var(--accent1),var(--accent2));
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+    }
+
+    .section-card header h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .section-card header p {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.4;
+      margin-top: .25rem;
+    }
+
+    /* ====== HERO / HEADER ====== */
+    .hero-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    @media(min-width:480px){
+      .hero-top {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+
+    .hero-img {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      background-color: #0003;
+      border: 2px solid var(--border);
+    }
+
+    .hero-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .hero-role {
+      font-size: .9rem;
+      color: var(--accent1);
+      font-weight: 500;
+      margin-top: .25rem;
+    }
+
+    .hero-tagline {
+      margin-top: .75rem;
+      font-size: .85rem;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    /* ===== LIST BLOCK ===== */
+    .list-block {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .edu-item,
+    .exp-item,
+    .project-item {
+      background-color: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: .75rem .9rem;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .sub-row {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: .25rem;
+    }
+
+    .desc-row {
+      font-size: .8rem;
+      color: var(--text);
+      margin-top: .5rem;
+      line-height: 1.4;
+    }
+
+    /* ===== BULLET LIST ===== */
+    .bullet-list {
+      font-size: .8rem;
+      color: var(--text);
+      margin-top: .5rem;
+      padding-left: 1rem;
+      line-height: 1.4;
+    }
+    .bullet-list li {
+      margin-bottom: .4rem;
+    }
+
+    /* ===== GRID INFO (DATA DIRI) ===== */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .5rem .75rem;
+      font-size: .8rem;
+    }
+    .info-label {
+      color: var(--muted);
+    }
+    .info-value {
+      color: var(--text);
+      font-weight: 500;
+      word-break: break-word;
+    }
+
+    /* ===== TAG LIST (SKILL) ===== */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .skill-tags span {
+      font-size: .7rem;
+      line-height: 1.2;
+      background-color: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: .4rem .6rem;
+      font-weight: 500;
+    }
+
+    /* ===== FOOTNOTE ===== */
+    .footnote {
+      font-size: .7rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 2rem;
+      line-height: 1.4;
+    }
+
+    .footer-accent {
+      color: var(--accent2);
+      font-weight: 500;
+    }
+
+    a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ====== BADGE "EDIT SESUAI DIRI ANDA" ====== */
+    .editable-hint {
+      font-size: .7rem;
+      font-weight: 500;
+      color: var(--accent2);
+      background-color: rgba(167,139,250,.08);
+      border: 1px solid var(--accent2);
+      border-radius: var(--radius-sm);
+      padding: .25rem .5rem;
+      line-height: 1.2;
+      display: inline-block;
+      margin-top: .5rem;
+    }
+
+  </style>
+</head>
+<body>
+
+<main>
+
+  <!-- =======================
+       0. TOMBOL GANTI TEMA
+       ======================= -->
+  <section class="theme-toggle-wrapper full-row">
+    <button class="theme-toggle-btn" id="toggleThemeBtn">
+      🌗 Ganti Tema (Dark / Light)
+    </button>
+  </section>
+
+  <!-- =======================
+       1. HERO / HEADER
+       ======================= -->
+  <section class="section-card hero-card full-row">
+    <div class="hero-top">
+      <!-- GANTI FOTO PROFIL -->
+      <img src="https://via.placeholder.com/120x120.png?text=FOTO"
+           alt="Foto Profil"
+           class="hero-img"/>
+
+      <div>
+        <!-- GANTI NAMA -->
+        <div class="hero-name">Muhammad Zidan Fahmi</div>
+
+        <!-- GANTI ROLE / POSISI SEKARANG -->
+        <div class="hero-role">Admin Marketplace •</div>
+      </div>
+    </div>
+
+    <!-- GANTI TAGLINE SINGKAT -->
+    <p class="hero-tagline">
+      Saya menggabungkan disiplin operasional harian dan pemikiran sistematis untuk
+      bikin proses kerja lebih efisien dan terukur.
+    </p>
+
+    <span class="editable-hint">Admin markertpace dan administrasi logistik </span>
+  </section>
+
+
+  <!-- =======================
+       2. ABOUT / TENTANG SAYA
+       ======================= -->
+  <section class="section-card">
+    <header>
+      <div class="bar"></div>
+      <div>
+        <h2>Tentang Saya</h2>
+        <p>Siapa saya, apa mindset kerja saya, dan apa nilai yang saya bawa.
+
+        </p>saya lihai dalam bidang apapun didalam pekerjaan dan siap bekerja dibidang lain
+
+      </div>
+    </header>
+
+    <!-- GANTI DESKRIPSI DIRI -->
+    <p style="font-size:.85rem; color:var(--text); line-height:1.5;">
+      Saya adalah seorang Admin Marketplace dan Admin Pengiriman yang saat ini kuliah
+      di Teknik Informatika. Fokus saya ada di otomasi proses kerja, pencatatan stok
+      rapi, dan pembuatan alat bantu sederhana (Excel / Python) untuk mempercepat
+      pekerjaan harian tim operasional. Saya nyaman bekerja dengan target,
+      koordinasi antar divisi, dan dokumentasi proses.
+    </p>
+
+    <span class="editable-hint">Edit narasi ini supaya mencerminkan karakter pribadi Anda</span>
+  </section>
+
+
+  <!-- =======================
+       3. DATA DIRI / KONTAK
+       ======================= -->
+  <section class="section-card">
+    <header>
+      <div class="bar"></div>
+      <div>
+        <h2>Data Diri</h2>
+        <p>Informasi dasar & kontak profesional.</p>
+      </div>
+    </header>
+
+    <!-- GANTI SEMUA FIELD DI SINI -->
+    <div class="info-grid">
+      <div>
+        <div class="info-label">Nama</div>
+        <div class="info-value">Muhammad Zidan Fahmi</div>
+      </div>
+      <div>
+        <div class="info-label">Lokasi</div>
+        <div class="info-value">Jakarta, Indonesia</div>
+      </div>
+
+      <div>
+        <div class="info-label">Email</div>
+        <div class="info-value">
+          <a href="mailto:zidan@example.com">zidanfahmi031@gmail.com</a>
+        </div>
+      </div>
+      <div>
+        <div class="info-label">Telepon</div>
+        <div class="info-value">+62 8777-953-9909</div>
+      </div>
+
+      <div>
+        <div class="info-label">LinkedIn</div>
+        <div class="info-value">
+          <a href="https://linkedin.com/in/zidan-fahmi" target="_blank">
+            linkedin.com/in/zidan-fahmi
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="info-label">GitHub</div>
+        <div class="info-value">
+          <a href="https://github.com/zidan-fahmi" target="_blank">
+            github.com/zidan-fahmi
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <span class="editable-hint">Ganti kontak sesuai milik Anda sendiri</span>
+  </section>
+
+
+  <!-- =======================
+       4. PENDIDIKAN / BACKGROUND
+       ======================= -->
+  <section class="section-card">
+    <header>
+      <div class="bar"></div>
+      <div>
+        <h2>Pendidikan</h2>
+        <p>Latar belakang akademik / pelatihan formal.</p>
+      </div>
+    </header>
+
+    <div class="list-block">
+
+      <!-- ITEM 1: BISA DIGANTI -->
+      <div class="edu-item">
+        <div class="top-row">
+          <span>Universitas Dian Nusantara</span>
+          <span>2024 - Sekarang</span>
+        </div>
+        <div class="sub-row">S1 Teknik Informatika</div>
+        <div class="desc-row">
+          Fokus pada pemrograman, sistem informasi, dan jaringan.
+        </div>
+      </div>
+
+      <!-- ITEM 2: BISA DIGANTI -->
+      <div class="edu-item">
+        <div class="top-row">
+          <span>SMK Yadika 2</span>
+          <span>2021 - 2024</span>
+        </div>
+        <div class="sub-row">Teknik Komputer & Jaringan</div>
+        <div class="desc-row">
+          Jaringan dasar, perangkat keras, administrasi sistem jaringan kecil.
+        </div>
+      </div>
+    </div>
+
+    <span class="editable-hint">Ubah nama sekolah, jurusan, tahun lulus sesuai riwayat Anda</span>
+  </section>
+
+
+  <!-- =======================
+       5. SKILL / KEAHLIAN
+       ======================= -->
+  <section class="section-card">
+    <header>
+      <div class="bar"></div>
+      <div>
+        <h2>Keahlian Utama</h2>
+        <p>Hal yang benar-benar biasa Anda lakukan / kuasai.</p>
+      </div>
+    </header>
+
+    <!-- GANTI / HAPUS / TAMBAH -->
+    <div class="skill-tags">
+      <span>Administrasi Marketplace & Logistik</span>
+      <span>Excel Operasional (stok & rekap harian)</span>
+      <span>Python dasar (otomasi kecil)</span>
+      <span>Monitoring jaringan (MikroTik basic)</span>
+      <span>Tracking pengiriman & retur</span>
+      <span>Dokumentasi Flowchart / ERD</span>
+    </div>
+
+    <span class="editable-hint">Isi skill relevan buat kerjaan yang kamu incar</span>
+  </section>
+
+
+  <!-- =======================
+       6. PENGALAMAN KERJA / CAREER
+       ======================= -->
+  <section class="section-card full-row">
+    <header>
+      <div class="bar"></div>
+      <div>
+        <h2>Pengalaman Kerja</h2>
+        <p>Berurutan dari yang paling baru.</p>
+        <p>Menjadi admin disebuah perusahan leon Branded</p>
+      </div>
+    </header>
+
+    <div class="list-block">
+
+      <!-- JOB 1 -->
+      <div class="exp-item">
+        <div class="top-row">
+          <span>Admin Marketplace • Leon Branded</span>
+          <span>2023 - Sekarang</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Mengelola pesanan harian dari e-commerce (Shopee/Tokopedia).</li>
+          <li>Sync stok gudang ↔ katalog online.</li>
+          <li>Buat laporan penjualan & retur harian.</li>
+        </ul>
+      </div>
+
+      <!-- JOB 2 -->
+      <div class="exp-item">
+        <div class="top-row">
+          <span>Admin Pengiriman / Logistik • Internal</span>
+          <span>2022 - 2023</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Input data resi & status pengiriman.</li>
+          <li>Koordinasi gudang & kurir untuk distribusi cepat.</li>
+          <li>Catat barang masuk/keluar untuk audit.</li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="editable-hint">Sesuaikan posisi, perusahaan, dan tugas harianmu</span>
+  </section>
+
+
+  <!-- =======================
+       7. PROJECT / PORTFOLIO
+       ======================= -->
+  <section class="section-card full-row">
+    <header>
+      <div class="bar"></div>
+      <div>
+        <h2>Project / Portfolio</h2>
+        <p>Contoh alat yang benar-benar pernah kamu buat / pakai.</p>
+      </div>
+    </header>
+
+    <div class="list-block">
+
+      <div class="project-item">
+        <div class="top-row">
+          <span>Aplikasi Stok Barang Sederhana (Desktop)</span>
+          <span>Python + Tkinter + Export PDF</span>
+        </div>
+        <div class="desc-row">
+          Tool input stok harian dan cetak laporan hanya item yang punya qty.
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="top-row">
+          <span>Program Kasir PPN & Diskon</span>
+          <span>Python CLI</span>
+        </div>
+        <div class="desc-row">
+          Hitung total belanja + PPN 12%, kode diskon, cetak struk otomatis.
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="top-row">
+          <span>Website Portofolio Pribadi</span>
+          <span>HTML + CSS Vanilla</span>
+        </div>
+        <div class="desc-row">
+          Landing page personal dengan tema gelap/terang via toggle.
+        </div>
+      </div>
+
+    </div>
+
+    <span class="editable-hint">Tunjukkan project yang nyata, jangan cuma teori</span>
+  </section>
+
+
+  <!-- =======================
+       8. SERTIFIKASI & PENCAPAIAN
+       ======================= -->
+  <section class="section-card full-row">
+    <header>
+      <div class="bar"></div>
+      <div>
+        <h2>Sertifikasi & Pencapaian</h2>
+        <p>Bukti pelatihan, workshop, reward internal, dsb.</p>
+      </div>
+    </header>
+
+    <ul class="bullet-list" style="margin-top:0;">
+      <li>Pelatihan Dasar Mikrotik & Monitoring Jaringan Internal</li>
+      <li>Workshop Manajemen Waktu untuk Mahasiswa Pekerja</li>
+      <li>Dokumentasi Flowchart Bisnis Proses & ERD (Internal Project)</li>
+    </ul>
+
+    <span class="editable-hint">Masukkan hal yang bisa jadi nilai plus untuk HR</span>
+  </section>
+
+
+  <!-- =======================
+       FOOTNOTE / CATATAN
+       ======================= -->
+  <div class="footnote full-row">
+    <div>
+      Terakhir diperbarui oleh <span class="footer-accent">Muhammad Zidan Fahmi</span>.
+    </div>
+    <div>
+      Tema dan isi halaman ini bisa diganti manual tanpa backend.
+    </div>
+  </div>
+
+</main>
+
+<!-- ============ JS KECIL UNTUK GANTI TEMA DARK / LIGHT ============ -->
+<script>
+  const btn = document.getElementById("toggleThemeBtn");
+  const html = document.documentElement;
+
+  btn.addEventListener("click", () => {
+    const current = html.getAttribute("data-theme");
+    const next = current === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", next);
+  });
+</script>
+
+</body>
+</html>
